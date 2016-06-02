@@ -371,14 +371,14 @@ max: The max number for our random number generator from av18.
 			x = (x/RAND_MAX)*max; 
 
 	double B;
-	double xlow  =  intersect; //- intersect*0.1;
+	double xlow  =  intersect - intersect*0.1;
 	double xhigh =  intersect + intersect*0.1 ;
 	double frac;
 	double cor;
 
 	 if(x <= xlow  ){B= (Fit[0] + Fit[1]*x)/(1+ Fit[2]*x + Fit[3]*x*x);}
-//		else if(x <= xhigh){frac = (x -xlow)/(xhigh-xlow); 
-//				B = (Fit[0] + Fit[1]*x)/(1+ Fit[2]*x + Fit[3]*x*x)*frac + (1-frac)*(Fit[0] + Fit[1]*x)/(1+ Fit[2]*x + Fit[3]*x*x);}
+		else if(x <= xhigh){frac = (x -xlow)/(xhigh-xlow); 
+				B = (Fit[0] + Fit[1]*x)/(1+ Fit[2]*x + Fit[3]*x*x)*frac + (1-frac)*(Fit[0] + Fit[1]*x)/(1+ Fit[2]*x + Fit[3]*x*x);}
 			else{B =(Fit[4] + Fit[5]*x)/(1+ Fit[6]*x + Fit[7]*x*x);}
 		
 

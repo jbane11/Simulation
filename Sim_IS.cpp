@@ -273,7 +273,7 @@ Pmom << Prot_momentum << " "<< random_Pmom <<endl;
 }// End of the beam loop! ////////////////////////////////////////
 
  root.close();
- rest.close();
+// rest.close();
  Pmom.close();
 
 //Output statment for general information

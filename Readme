@@ -1,5 +1,10 @@
-Please make the following enviromental varibles if you do not already have them established.
-    OUT_DIR: This one fight already be set
-    OUTPUT_DIR: I created this one, so you most liklley will need to make this one. 
+Please make the following environmental variables if you do not already have them established.
+    OUT_DIR: This one might already be set
+    OUTPUT_DIR: I created this one, so you most likely will need to make this one. 
     
-    
+ To begin, run av18.c using root. This will ask for three inputs. First, run number, this is an integer value that is associated with the files that will be saved for the momentum distribution. Second, the maximum number for the second exponential, originally set to 0.0107. Third, the slope modifier for the the 2nd exponential, originally set to 1. This will produce two graphs and a single line output file in the OUTPUT_DIR. 
+
+
+Next run Sim_IS.cpp using c++. It will ask for the run number you used in av18.c. This will produce two large data files in the OUTPUT_DIR.
+
+In order to view the distribution of momentum produced, run Mo_Dist.c in root using the run number from the previous two programs. This produces one histogram of counts of the proton momentum.  

@@ -1,7 +1,7 @@
 #include <iostream>     //for using cout
 #include <stdlib.h>     //for using the function sleep
 using namespace std;
-void modist_2() {
+void Mo_Dist() {
 		time_t start = time(0) ;
 	cout << "\n" << "\n";
 int run =0;

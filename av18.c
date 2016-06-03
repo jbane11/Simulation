@@ -95,7 +95,7 @@ int color = (quit/normalizer)*19 - 9;
 av[quit]->SetLineColor(kViolet+color);
 //av[quit]->Draw("same");
 //av[quit]->SetMaximum(2);}
-cout << sumrule <<"   "<< D[0] <<endl;
+//cout << sumrule <<"   "<< D[0] <<endl;
 
 //		cout<<setprecision(4) <<"intergral of P(k) = "<<sum<< ":  intergral of k^2 * P(k) = "<< sumrule<<  ": "<< endl << "intersections for k = " << intersection[0] << ", intersection for P(k)  "<< intersection[1]<<endl<<"  number of tries to find the intersection   "<< j<< "  D[0] = " <<D[0] <<endl<<endl<<endl;
 
@@ -165,7 +165,7 @@ TF1 *frac1 = new TF1("frac1" ,"([0] + [1]*x)/(1 + [2]*x + [3]*x^2)",0,5);
 TF1 *frac2 = new TF1("frac2" ,"([0] + [1]*x)/(1 + [2]*x + [3]*x^2) + ([4] + [5]*x)/(1 + [6]*x + [7]*x^2)",0,5);
 TF1 *log   = new TF1("log" ,"log(x/[0])/[1]",0,5);
 
- TCanvas *Fit = new TCanvas("Fit", "Fit",0,0,700,700);
+ TCanvas *Fit = new TCanvas("Fit", "Fit",700,0,700,700);
 av18_11 ->Fit("frac","R","",0,intersection[1]);
 av18_12 ->Fit("frac1","R+","",intersection[1],1/0.187721);
 av18_11->Draw();

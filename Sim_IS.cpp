@@ -6,16 +6,14 @@
 #include <iostream>
 #include <sstream>
 #include <fstream>
-//#include <Tstring.h> 
 #include <time.h>
-#include "nr3.h"
-#include "ran.h"
-//#include "/u/home/jbane/headers/trapz-simp.h"
+
+
 using namespace std;
 
 
 
-const 	int number_of_electrons =10; 
+const 	int number_of_electrons =100000; 
 //Function protype.
 double distribution(double A ,double Fit[8],double intersect, double max);
 double rotationZ(double A[4], double angle,int i);
@@ -56,8 +54,6 @@ char pmom_file[100];
 int nm = sprintf(pmom_file, "%s/pmom_%d.txt",data_dir,run);
 	ofstream root;
 	root.open(output_file);
-//	ofstream rest;
-//	rest.open("/lustre/expphy/volatile/halla/triton/Bane/data/ISrest.txt");
 	ofstream Pmom;
 	Pmom.open(pmom_file);
 // Constants
@@ -80,7 +76,7 @@ int nm = sprintf(pmom_file, "%s/pmom_%d.txt",data_dir,run);
 	double e_final[4],p_final[4];	//Final vectors for the electron and proton
     double elec_Beam_momentum = 10;//Beam momentum in GeV
     double Prot_momentum = 0.250     ;  //Proton momentum in GeV   
-//	int number_of_electrons =3000000;  
+
 	double min_angle = 0;// By defaults scattered angle covers 360 degrees
 	double angle_range = 360;  
 	char check;	
@@ -94,7 +90,7 @@ int nm = sprintf(pmom_file, "%s/pmom_%d.txt",data_dir,run);
 	av18 >> Fit[0] >> Fit[1] >> Fit[2] >> Fit[3] >> Fit[4] >> Fit[5] >> Fit[6] >> Fit[7] >> intersect >>random_max;
 
 
-cout << Fit[0] << " " << intersect <<endl;
+//cout << Fit[0] << " " << intersect <<endl;
 
 
 	int jj = 0;
@@ -107,8 +103,7 @@ cout << Fit[0] << " " << intersect <<endl;
 	Prot_momentum = distribution(i, Fit,intersect,random_max)*0.1973;
 	double random_Pmom = Random(i);
 
-//					if(random_Pmom <= 0.0012){	jj++; 
-//				cout << jj << " " << i << " " << random_Pmom << " " << Prot_momentum<<endl;}
+
 
 
 // Random angle in degrees used for Lambda the incoming proton angle
@@ -117,7 +112,7 @@ cout << Fit[0] << " " << intersect <<endl;
 			random_lam = random_lam/RAND_MAX;
 	
 	double Lambda = (random_lam)*360*rad;
-//	if(i <= 100) {cout<<Prot_momentum << " "<<Lambda/rad<< endl ;}
+
 // incomeing electron and proton 4 vectors.
     e[0] = elec_Beam_momentum;      //electron energy
     e[1] = elec_Beam_momentum;      //Electron Beam Momentum
@@ -330,16 +325,15 @@ return Prime[i];
 
 // random number generator: Thinking about making this a seperate called function in order to make the seed random: WIP
 double Random(double A){
-	Ran yourran(A);  
-	double B = yourran.doub();
+	srand(A);
+	double B = rand();
+			B = B/RAND_MAX;
 return B; }
 
 //Currently unused
 double RANDOM(double A){
-	Ran yourran(A);
-	double C = yourran.doub();
-	double B = 0.4 - 0.05*C; 
-return B;}
+
+return A;}
 
 //Calculate Ftwo-Need Beam energy,scattered electron energy and angle
 double Ftwo(double Beam, double Eprime, double theta){
@@ -380,52 +374,6 @@ max: The max number for our random number generator from av18.
 		else if(x <= xhigh){frac = (x -xlow)/(xhigh-xlow); 
 				B = (Fit[0] + Fit[1]*x)/(1+ Fit[2]*x + Fit[3]*x*x)*frac + (1-frac)*(Fit[0] + Fit[1]*x)/(1+ Fit[2]*x + Fit[3]*x*x);}
 			else{B =(Fit[4] + Fit[5]*x)/(1+ Fit[6]*x + Fit[7]*x*x);}
-		
 
 	double p = B;
 return p; }
-
-
-//////// Old methonds
-
-
-//	B = log(x/13.2412)/-6.761 + log(x/0.013428)/-1.6886; // equation extracted from avx 18? for first function
-	//if(B > 1.36  ){ B = log(x/0.013428)/-1.6886 ;} // equation extracted from avx 18? for second function
-
-//, B[1] =0.05:::    5.202,  2.475*pow(10,4),  9866,  1.554*pow(10,6) ,0.9987,  -4.38,  22.36,  11.3 , intersect at 0.03
-//*pow(10,4) , B[1]=0.107   5.226,  1.225*pow(10,5),  4.837*pow(10,4),  3.415*pow(10,7),  1.904,  405.5,  527.6,  4756,  intersect at 0.0015
-
-//	double a[8] = { 5.202,  2.475*pow(10,4),  9866,  1.554*pow(10,6) ,0.9987,  -4.38,  22.36,  11.3 };
-//		 if(x <= 0.03){B= (a[0] + a[1]*x)/(1+ a[2]*x + a[3]*x*x);}
-//		else{B =(a[4] + a[5]*x)/(1+ a[6]*x + a[7]*x*x);}}
-
-
-/*
-	double lambda = 13.2412; //constants for first function
-	double beta   = -6.761;
-	double gamma  = 0.013428; //constants for second function
-	double delta  = -1.6886; */
-
-/*else if(count == 0){	
-	double b[8] = { 5.226,  1.225*pow(10,5),  4.837*pow(10,4),  3.415*pow(10,7),  1.904,  405.5,  527.6,  4756};
-	 	if(x <= 0.0015){B= (b[0] + b[1]*x)/(1+ b[2]*x + b[3]*x*x);}
-		else{B =(b[4] + b[5]*x)/(1+ b[6]*x + b[7]*x*x);}}
-
-else{
-	if(A <= half){
-	double a[8] = {75.85,  7.604*pow(10,6),  1.293*pow(10,6),  3.097*pow(10,9), 6274, 5.493*pow(10,6),7.169*pow(10,6),2.098*pow(10,8)  };
-			 if(x <=  0.001618){B= (a[0] + a[1]*x)/(1+ a[2]*x + a[3]*x*x);}
-			else{B =(a[4] + a[5]*x)/(1+ a[6]*x + a[7]*x*x);}}
-	else{
-			double b[8] = { 5.226,  1.225*pow(10,5),  4.837*pow(10,4),  3.415*pow(10,7),  1.904,  405.5,  527.6,  4756};
-	 		if(x <= 0.0015){B= (b[0] + b[1]*x)/(1+ b[2]*x + b[3]*x*x);}
-			else{B =(b[4] + b[5]*x)/(1+ b[6]*x + b[7]*x*x);}}
-		}
-
-	double p = B;
-return p; }
-
-
-
-
-*/

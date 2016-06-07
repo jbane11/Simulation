@@ -1,7 +1,8 @@
 Please make the following environmental variables if you do not already have them established.
     OUT_DIR: This one might already be set
     OUTPUT_DIR: I created this one, so you most likely will need to make this one. 
-    
+    IMG_DIR:  Another new one, this will be the location of some saved png files.
+ 
  To begin, run av18.c using root. This will ask for three inputs. First, run number, this is an integer value that is associated with the files that will be saved for the momentum distribution. Second, the maximum number for the second exponential, originally set to 0.0107. Third, the slope modifier for the the 2nd exponential, originally set to 1. This will produce two graphs and a single line output file in the OUTPUT_DIR. 
 
 
